@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>渐变遮罩</title>
+    <style>
+        /* common */
+        html, body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .ul {
+            width: 400px;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: scroll;
+            border: 1px solid #999;
+            padding: 5px;
+        }
+        .li {
+            margin-right: 12px;
+            border-radius: 5px;
+            border: 1px solid #999;
+            padding: 4px;
+            cursor: pointer;
+            
+            &:hover {
+                background: #999;
+                color: #fff;
+            }
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+
+        /* 1. pointer-event: none; */
+        .ul1 {
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                top: 0;
+                width: 100px;
+                background: linear-gradient(90deg, transparent, #FFF);
+                pointer-events: none;
+            }
+        }
+
+
+        /* 2. mask */
+        .ul2 {
+            mask: linear-gradient(90deg, #000 300px, transparent);
+        }
+    </style>
+</head>
+<body>
+    <div class="box2">
+        <strong>1. 透传 pointer-event: none;</strong>
+        <div class="ul ul1">
+            <span class="li">Button1</span>
+            <span class="li">Button2</span>
+            <span class="li">Button3</span>
+            <span class="li">Button4</span>
+            <span class="li">Button5</span>
+            <span class="li">Button6</span>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="box">
+        <strong>2. 使用 mask 属性</strong>
+        <div class="ul ul2">
+            <span class="li">Button1</span>
+            <span class="li">Button2</span>
+            <span class="li">Button3</span>
+            <span class="li">Button4</span>
+            <span class="li">Button5</span>
+            <span class="li">Button6</span>
+        </div>
+    </div>
+</body>
+</html>
