@@ -22,8 +22,8 @@ const compareVersion = function (version1, version2, fill=9) {
     // log('v1, v2', v1, v2)
     let res = 1
     for (let index = 0; index < v1.length; index++) {
-        const a1 = v1[index]
-        const a2 = v2[index]
+        const a1 = Number(v1[index])
+        const a2 = Number(v2[index])
         if (a1 === a2) {
             continue
         } else if (a1 < a2) {
@@ -65,8 +65,8 @@ const compareVersion2 = function (version1, version2, fill=5) {
     // log('v1, v2', v1, v2)
     let res = 1
     for (let index = 0; index < v1.length; index++) {
-        const a1 = v1[index]
-        const a2 = v2[index]
+        const a1 = Number(v1[index])
+        const a2 = Number(v2[index])
         if (a1 === a2) {
             continue
         } else if (a1 < a2) {
@@ -78,10 +78,12 @@ const compareVersion2 = function (version1, version2, fill=5) {
     }
     return res
 }
-let version3 = '0.1.1'
-let version4 = '0.302.1.3' 
+let version3 = '0.1111.1'
+let version4 = '0.302.1.3'
 compareVersion2(version3, version4)
-
+let version5 = '1.15.202'
+let version6 = '1.15.1111.3'
+compareVersion2(version5, version6)
 
 // -------- 一组版本号排序 --------
 
