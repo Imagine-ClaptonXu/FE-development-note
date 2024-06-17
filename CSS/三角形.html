@@ -4,8 +4,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>三角形</title>
+    <style>
+        /* common */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            position: relative;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 2px dashed lightgray;
+            display: flex;
+            flex-direction: row;
+            padding-top: 30px;
+        }
+        .mr10 {
+            margin-right: 10px;
+        }
+        strong {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+
+        /* 1. 用 border 实现 */
+        .bb {
+            height: 0;
+            width: 0;
+        }
+        .b1 {
+            border-top: 50px solid yellowgreen;
+            border-bottom: 50px solid deeppink;
+            border-left: 50px solid bisque;
+            border-right: 50px solid chocolate;
+        }
+        .b2 {
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-left: 50px solid transparent;
+            border-right: 50px solid chocolate;
+        }
+
+
+        /* 2. 线性渐变 linear-gradient 实现 */
+        .ll {
+            width: 100px;
+            height: 100px;
+        }
+        .l1 {
+            background: linear-gradient(45deg, bisque, chocolate);
+        }
+        .l2 {
+            background: linear-gradient(45deg, bisque, bisque 50%, chocolate 50%, chocolate 100%);
+        }
+        .l3 {
+            background: linear-gradient(45deg, transparent, transparent 50%, chocolate 50%, chocolate 100%);
+        }
+
+
+        /* 3. transform: rotate 配合 overflow: hidden 绘制三角形 */
+        .tt {
+            width: 100px;
+            height: 50px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #000;
+            margin-bottom: 1px; 
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: chocolate;
+                transform-origin: left bottom;
+                
+            }
+        }
+        .t2::before {
+            transform: rotate(5deg);
+        }
+        .t3 {
+            border: none;
+        }
+        .t3::before {
+            transform: rotate(45deg);
+        }
+
+
+        /* 4. 使用 clip-path 绘制三角形 */
+        .cc {
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+            background: chocolate;
+        }
+        .c2 {
+            clip-path: polygon(0 0, 100% 0, 0 100%, 0 0);
+        }
+
+
+        /* 5. 利用三角形形状字符的十进制 Unicode 表示码绘制三角形 */
+        .f1 {
+            font-size: 100px;
+            color: chocolate;
+        }
+        .bd1 {
+            border: 1px solid lightgray;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="box">
+        <strong>1. 用 border 实现</strong>
+        <div class="bb mr10 b1"></div>
+        <div class="bb mr10 b2"></div>
+    </div>
+
+    <div class="box">
+        <strong>2. 线性渐变 linear-gradient 实现</strong>
+        <div class="ll mr10 l1"></div>
+        <div class="ll mr10 l2"></div>
+        <div class="ll mr10 l3"></div>
+    </div>
+
+    <div class="box">
+        <strong>3. transform: rotate 配合 overflow: hidden 绘制三角形</strong>
+        <div class="tt mr10 t1"></div>
+        <div class="tt mr10 t2"></div>
+        <div class="tt mr10 t3"></div>
+    </div>
+
+    <div class="box">
+        <strong>4. 使用 clip-path: polygon(A, B, C, D) 绘制三角形(通过一系列顶点定义多边形的边界)</strong>
+        <div class="cc mr10"></div>
+        <div class="cc mr10 c2"></div>
+    </div>
+
+    <div class="box">
+        <strong>5. 利用三角形形状字符的十进制 Unicode 表示码绘制三角形(注意：不同字体下的表现不一样)</strong>
+        <div class="f1 mr10 bd1">&#9660;</div>
+        <div class="f1 mr10 bd1">&#9668;</div>
+        <div class="f1 mr10 bd1">&#9658;</div>
+        <div class="f1 mr10 bd1">&#9660;</div>
+        <div class="f1 mr10 bd1">&#9650;</div>
+        <div class="f1 mr10 bd1">&#8895;</div>
+        <div class="f1 mr10 bd1">&#9651;</div>
+    </div>
 </body>
 </html>
