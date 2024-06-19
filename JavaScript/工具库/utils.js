@@ -169,3 +169,109 @@ function throttle(fn, delay) {
         }
     }
 }
+
+// 获取当前日期
+const getNowDate = function (time=null, mark='.') {
+    let t = time ? new Date(time) : new Date()
+    let y = t.getFullYear()
+    let m = t.getMonth() + 1
+    if (m < 10) {
+        m = `0${m}`
+    }
+    let d = t.getDate()
+    if (d < 10) {
+        d = `0${d}`
+    }
+    let newT = `${y}${mark}${m}${mark}${d}`
+    return newT
+}
+
+// 延迟函数
+const delay2 = (ms, data='') => {
+    /*
+        使用
+        (async() => {
+            const result = await delay2(1000, { key: 'value' })
+            console.log('result:', result)
+        })();
+    */
+    return new Promise((resolve, reject) => {
+        let t = setTimeout(() => {
+            clearTimeout(t)
+            resolve(data)
+        }, ms)
+    })
+}
+
+/**
+ * 数字格式化，自动把大数转换成 "元", "万", "亿", "万亿", "兆"
+ * @param {number} num 数字
+ * @param {number} fix 数字格式化成 xx元 xx万... 之后保留的小数位，四舍五入
+ * @param {string | number} suf 在末尾补充的内容
+ * @returns formatLargeNum(100003, 2, '!!') => '10.00万!!'
+ */
+const formatLargeNum = function (num, fix, suf) {
+    var moneyUnits = ["元", "万", "亿", "万亿", "兆"];
+    var dividend = 10000;
+    var curentNum = num || 0; //转换数字
+    var curentUnit = moneyUnits[0]; //转换单位
+    var aFix = fix || 0;
+    var aSuf = suf || "";
+    var strNumSize = tempNum => {
+        var stringNum = tempNum.toString();
+        var index = stringNum.indexOf(".");
+        var newNum = stringNum;
+        if (index != -1) {
+            newNum = stringNum.substring(0, index);
+        }
+        newNum = newNum.replace(/[\-\+]/igm, '');
+        return newNum.length;
+    };
+
+    for (var i = 0; i < 5; i++) {
+        curentUnit = moneyUnits[i] + aSuf;
+        if (strNumSize(curentNum) < 5) {
+            break;
+        }
+        curentNum = curentNum / dividend;
+    }
+    var m = {
+        num: 0,
+        unit: ""
+    };
+    m.num = curentNum.toFixed(aFix);
+    m.unit = curentUnit;
+    return m.num + m.unit;
+}
+
+// 获取一个 a b 之间的随机数, [a, b)
+const randomBetween = function(a, b) {
+    return Math.floor((b - a) * Math.random() + a)
+}
+
+// 生成 GUID '177078ca-5a2a-a448-abcb-8cfc542968cb'
+const genGUID = function () {
+    function S4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+    }
+    return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4())
+}
+
+/**
+ * 判断某个原生DOM元素是否不在屏幕可见区内
+ * @param {HTMLElement} el 原生 DOM 元素
+ */
+const isElementNotInViewport = (el, bottom=0) => {
+    let rect = el.getBoundingClientRect()
+    return (
+        rect.top >= (window.innerHeight || document.documentElement.clientHeight) || rect.bottom <= bottom
+    )
+}
+
+// 创建唯一的字符串，长度12
+const createUniqueString = function () {
+    const timestamp = +new Date() + ''
+    const randomNum = parseInt((1 + Math.random()) * 65536) + ''
+    const retstr = (+(randomNum + timestamp)).toString(32).toUpperCase()
+    return retstr
+}

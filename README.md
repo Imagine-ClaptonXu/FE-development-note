@@ -5,9 +5,9 @@
 ├─CSS
 ├─DataStructure // 数据结构
 ├─JavaScript
-│  └─libs // 常用方法
-├─leetcode // 算法
-│  ├─哈希表
-│  └─面试真题
+│  ├─工具库 // 常用方法集合
+│  └─面试手写代码真题 // 原生 JavaScript 手写代码
+├─leetcode
+│  └─哈希表
 └─test // ignore
 ```

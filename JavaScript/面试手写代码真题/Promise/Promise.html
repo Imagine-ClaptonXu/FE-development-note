@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Promise</title>
+    </head>
+<body>
+<h1>F12 打开控制台查看 Console</h1>
+<script src="./Promise.js" type="application/javascript"></script>
+<script>
+    var log = console.log.bind(console)
+    log('start')
+    const test1 = function() {
+        const promise = new MyPromise((resolve, reject) => {
+            log(1)
+            resolve('123')
+        })
+
+        const promise2 = new MyPromise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({number: 1})
+            }, 2000)
+        })
+
+        const promise3 = new MyPromise((resolve, reject) => {
+            setTimeout(() => {
+                reject({number: 2})
+            }, 2000)
+        })
+
+        promise.then(data => {
+            log('data', data)
+        })
+
+        promise2.then(data => {
+            log('data', data)
+        })
+
+        promise3.then(data => {
+            log('data', data)
+        }, err => {
+            log('err', err)
+        }).catch(e => {
+            log('e', e)
+        })
+
+        // 链式调用
+        const promise4 = new MyPromise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({number: 99})
+            }, 2000)
+        })
+
+        promise4.then((data) => {
+            log('promise4 then', data)
+            return new MyPromise((resolve, reject) => {
+                setTimeout(() => {
+                    reject('Error')
+                })
+            })
+        }).then((data) => {
+            log('promise4 resolve', data)
+        }, (err) => {
+            log('promise4 Err', err)
+        }).then((data) => {
+            log('done')
+        })
+    }
+    
+    const __main = function() {
+        test1()
+    }
+
+    __main()
+</script>
+</body>
+</html>
