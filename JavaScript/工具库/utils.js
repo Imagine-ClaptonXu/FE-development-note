@@ -275,3 +275,107 @@ const createUniqueString = function () {
     const retstr = (+(randomNum + timestamp)).toString(32).toUpperCase()
     return retstr
 }
+
+/**
+ * 数字格式化成字符串
+ * @param {number} data 数据
+ * @param {string} type 处理成数字（原样返回）还是格式化成字符串
+ * @param {string} unit 单位
+ * @param {number} n 几位小数
+ * @param {string} before 前面的 + - 号，负数不处理
+ * @param {number} rate 数据 * 多少倍，比如正常 0.25 转换成 25%, 就需要 0.25×100
+ */
+const formatterNumberToString = (data, type, unit='', n=2, before='', rate=100) => {
+    let res = '--'
+    if (data > 0 || data < 0) {
+        if (type === 'number') {
+            res = data
+        } else {
+            res = `${Number(data*rate).toFixed(n)}${unit}`
+            if (data > 0 && before === '+') {
+                res = `+${res}`
+            }
+        }
+    } else if (data === 0) {
+        if (type === 'number') {
+            res = 0
+        } else {
+            res = `${(0).toFixed(n)}${unit}`
+        }
+    } else if (data === null) {
+        if (type === 'number') {
+            res = 0
+        } else {
+            res = '--'
+        }
+    } else {
+        console.warn('formatter', data, type, unit, n, before)
+    }
+    return res
+}
+
+// 解析 URL Params 为对象
+function parserUrlParams(url) {
+    let paramsStr = url
+    // 有问号取问号后面的，没有问号则认为已经是 search 了
+    if (paramsStr.includes('?')) {
+        paramsStr = /.+\?(.+)$/.exec(url)[1] // 将 ? 后面的字符串取出来
+    }
+    // console.log("将 ? 后面的字符串取出来", paramsStr)
+
+    // 看有没有 #，去掉 # 和 hash
+    if (paramsStr.includes('#')) {
+        let p1 = paramsStr.split('#')[0]
+        let p2 = paramsStr.split('#')[1]
+        if (p1.slice(0, 1) === '/') {
+            paramsStr = p2
+        }
+        if (p2.slice(0, 1) === '/') {
+            paramsStr = p1
+        }
+    }
+    // console.log("去掉 # 和 hash", paramsStr)
+    
+    const paramsArr = paramsStr.split('&') // 将字符串以 & 分割后存到数组中
+    let paramsObj = {}
+    // 将 params 存到对象中
+    paramsArr.forEach(param => {
+        // 处理有 key=value，(有 value 的参数)
+        if (/=/.test(param)) {
+            let [key, value] = param.split('=') // 分割 key 和 value
+            value = decodeURIComponent(value) // 解码
+            // 不转为数字，否则 000001 会被转成 1
+            // value = /^\d+$/.test(value) ? parseFloat(value) : value // 判断是否转为数字
+            if (paramsObj.hasOwnProperty(key)) { // 如果对象有 key，则添加一个值
+                paramsObj[key] = [].concat(paramsObj[key], value)
+            } else { // 如果对象没有这个 key，创建 key 并设置值
+                paramsObj[key] = value
+            }
+        } else { // 处理没有 value 的参数
+            paramsObj[param] = true
+        }
+    })
+    console.info('URL Params', paramsObj)
+    return paramsObj
+}
+
+export {
+    log,
+    ensure,
+    isArray,
+    isObject,
+    equals,
+    deepClone,
+    numberAddMark,
+    debounce,
+    throttle,
+    getNowDate,
+    delay2,
+    formatLargeNum,
+    randomBetween,
+    genGUID,
+    isElementNotInViewport,
+    createUniqueString,
+    formatterNumberToString,
+    parserUrlParams,
+}
