@@ -1,4 +1,11 @@
 // -------- 栈 --------
+// 是一种遵从后进先出(LIFO)原则的有序集合，新添加或待删除的元素都保存在栈的同一端，称之为栈顶，另一端叫栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。
+// push(): 在栈顶添加一个或者多个元素。
+// pop(): 移除栈顶的第一个元素，同时返回被移除的元素。
+// peek(): 返回栈顶的元素。
+// isEmpty(): 判断栈是否为空，是则返回 true, 否则返回 false
+// size(): 返回栈中元素的个数
+// clear(): 移除栈中的所有元素
 
 class Stack {
     constructor() {
@@ -15,17 +22,17 @@ class Stack {
         return this.items.pop()
     }
 
-    // 末位
+    // 返回栈顶（末位）
     get peek() {
-        return this.items[this.items.length - 1]
+        return this.items[this.size - 1]
     }
 
-    // 是否为空栈
+    // 判断栈是否为空
     get isEmpty() {
-        return !this.items.length
+        return this.size === 0
     }
 
-    // 尺寸
+    // 元素个数
     get size() {
         return this.items.length
     }
@@ -41,7 +48,8 @@ class Stack {
     }
 }
 
-// test
+
+// -------- test --------
 var log = console.log.bind(console)
 const stack = new Stack()
 log(stack.isEmpty) // true
