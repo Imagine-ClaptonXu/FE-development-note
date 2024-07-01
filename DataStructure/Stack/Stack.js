@@ -23,17 +23,17 @@ class Stack {
     }
 
     // 返回栈顶（末位）
-    get peek() {
-        return this.items[this.size - 1]
+    peek() {
+        return this.items[this.size() - 1]
     }
 
     // 判断栈是否为空
-    get isEmpty() {
-        return this.size === 0
+    isEmpty() {
+        return this.size() === 0
     }
 
     // 元素个数
-    get size() {
+    size() {
         return this.items.length
     }
 
@@ -44,7 +44,7 @@ class Stack {
 
     // 打印栈数据
     print() {
-        log(this.items)
+        console.log(this.items)
     }
 }
 
@@ -52,15 +52,15 @@ class Stack {
 // -------- test --------
 var log = console.log.bind(console)
 const stack = new Stack()
-log(stack.isEmpty) // true
+log(stack.isEmpty()) // true
 
 // 添加元素
 stack.push(5)
 stack.push(8)
 
 // 读取属性再添加
-log(stack.peek) // 8
+log(stack.peek()) // 8
 stack.push(11)
-log(stack.size) // 3
-log(stack.isEmpty) // false
+log(stack.size()) // 3
+log(stack.isEmpty()) // false
 stack.print()
