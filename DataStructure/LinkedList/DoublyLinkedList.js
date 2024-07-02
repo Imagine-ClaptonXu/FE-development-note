@@ -2,7 +2,6 @@
 // 双向链表和普通链表的区别在于，在链表中，一个节点只有链向下一个节点的链接；
 // 而在双向链表中，链接是双向的：一个链向下一个元素，另一个链向前一个元素
 
-
 const equals = function(a, b) {
     const isArray = function(s) {
         return Object.prototype.toString.call(s) === '[object Array]'
@@ -76,173 +75,25 @@ const equals = function(a, b) {
         return a === b
     }
 }
-class Node {
-    constructor(element) {
-        // 表示要加入链表元素的值
-        this.element = element
-        // 指向链表下一个元素的指针
-        this.next = null
-    }
-}
-class LinkedList {
-    constructor (equalsFn=equals) {
-        // 我们使用count来记录链表中的总数。
-        this.count = 0
-        // 由于链表数据结构是动态的，因此我们需要将第一个元素的引用保存下来。
-        this.head = null
-        // 如果我们要在链表中遍历，判断当前节点是否是我们需要的节点，而链表中的节点不仅仅是值类型还可能是引用类型，
-        // 因此需要我们提供一个比较方法，当没有这个方法的时候则使用默认的 equals() 方法
-        this.equalsFn = equalsFn
-    }
-    // 向链表尾部添加一个新元素
-    push(element) {
-        const node = new Node(element)
-        let current
-        if (this.head === null) {
-            this.head = node
-        } else {
-            current = this.head
-            // 获得最后一项
-            while (current.next !== null) {
-                current = current.next
-            }
-            // 将其 next 赋为新元素，建立链接
-            current.next = node
-        }
-        this.count++
-    }
-    // 返回链表中特定位置的元素。如果不存在，返回 undefined
-    getElementAt(index) {
-        if (index >= 0 && index <= this.count) {
-            let current = this.head
-            for (let i = 0; i < index && current !== null; i++) {
-                current = current.next
-            }
-            return current
-        }
-        return undefined
-    }
-    // 从链表的特定位置移除一个元素。
-    removeAt(index) {
-        // 检查越界值
-        if (index >= 0 && index < this.count) {
-            let current = this.head
-            // 移除第一项，就是让 head 指向列表的第二个元素
-            if (index === 0) {
-                this.head = current.next
-            } else {
-                const previous = this.getElementAt(index - 1)
-                current = previous.next
-                // 将 previous 与 current 的下一项链接起来：跳过 current，从而移除它
-                previous.next = current.next
-            }
-            this.count--
-            return current.element
-        }
-        return undefined
-    }
-    // 向链表的特定位置插入一个新元素。
-    insert(element, index) {
-        if (index >= 0 && index <= this.count) {
-            const node = new Node(element)
-            // 在第一个位置添加
-            if (index === 0) {
-                const current = this.head
-                node.next = current
-                this.head = node
-            } else {
-                // index-1      index
-                // previous     current
-
-                // index-1                  index                       index+1
-                // previous.next    =>      node    node.next   =>      current
-
-                // index-1      index       index+1
-                // previous     node        current
-
-                const previous = this.getElementAt(index - 1)
-                const current = previous.next
-                // 与 removeAt() 直接跳过 current 不同的是
-                // insert 时需要我们先将 previous 和 node 链接起来，既：node.next = current
-                node.next = current
-                // 随后再将 previous 和 node 链接起来，既：previous.next = node
-                previous.next = node
-            }
-            this.count++
-            return true
-        }
-        return false
-    }
-    // 返回元素在链表中的索引。如果链表中没有该元素则返回-1。
-    indexOf(element) {
-        let current = this.head
-        for (let i = 0; i < this.count && current != null; i++) {
-            if (this.equalsFn(element, current.element)) {
-                return i
-            }
-            current = current.next
-        }
-        return -1
-    }
-    // 从链表中移除一个元素。
-    remove(element) {
-        // 不关心 index 是否为 -1，因为在 removeAt() 方法中已经检查了 index 参数的合法性
-        const index = this.indexOf(element)
-        return this.removeAt(index)
-    }
-    // 返回链表包含的元素个数，与数组的 length 属性类似。
-    size() {
-        return this.count
-    }
-    // 如果链表中不包含任何元素，返回 true，如果链表长度大于 0则返回 false。
-    isEmpty() {
-        return this.size() === 0
-    }
-    // 返回链表的第一个元素。
-    getHead() {
-        return this.head === null ? undefined : this.head.element
-    }
-    // 返回表示整个链表的字符串。
-    toString() {
-        if (this.isEmpty()) { // 也可以用 this.head === null 来判断
-            return ''
-        }
-        let str = this.head.element
-        let current = this.head
-    
-        while (current.next !== null) {
-            current = current.next
-            str = `${str},${current.element}`
-        }
-        return str
-    }
-    // 修改某个位置的元素并返回 true, 如果链表中没有元素就返回 false
-    updateNodeAt(element, index) {
-        const current = this.getElementAt(index)
-        if (current === undefined) {
-            return false
-        }
-        current.element = element
-        return true
-    }
-}
-
 
 // 双向链表的链表节点
-class DoublyNode extends Node {
+class DoublyNode {
     constructor (element, next, prev) {
-        super(element, next)
+        this.element = element
+        this.next = next
         // previous，链向前一个元素
         this.prev = prev // 双向链表新增的内容
     }
 }
 
 // 双向链表
-class DoublyLinkedList extends LinkedList {
+class DoublyLinkedList {
     constructor(equalsFn=equals) {
-        super(equalsFn)
+        this.count = 0
+        this.head = undefined
         // 控制着指向最后一个元素的指针。
         this.tail = undefined // 双向链表新增的内容
+        this.equalsFn = equalsFn
     }
     // 插入一个新元素，跟普通(单向)链表区别在于：
     // 普通(单向)链表只需要控制一个 next 指针，而双向链表同时需要控制 next 和 prev 两个指针。
@@ -252,7 +103,7 @@ class DoublyLinkedList extends LinkedList {
             let current = this.head
             if (index === 0) {
                 // 在双向链表第一个位置（起点）插入一个新元素。
-                if (this.head == null) {
+                if (this.head == undefined) {
                     // 如果双向链表为空，只需要把 head 和 tail 都指向这个新节点
                     this.head = node
                     this.tail = node // 双向链表新增的内容
@@ -336,7 +187,7 @@ class DoublyLinkedList extends LinkedList {
     // 在双向链表尾部添加新元素，区别仍然是我们需要多维护一个 tail 指针。
     push (element) {
         const node = new DoublyNode(element)
-        if (this.head === null) {
+        if (this.head === undefined) {
             this.tail = node
             this.head = node
         } else {
@@ -347,25 +198,92 @@ class DoublyLinkedList extends LinkedList {
         this.count++
     }
     clear() {
-        super.clear()
-        this.tail = null
+        this.count = 0
+        this.head = undefined
+        this.tail = undefined
     }
     // 返回链表的最后一个元素。
     getTail() {
-        return this.tail === null ? undefined : this.tail.element
+        return this.tail === undefined ? undefined : this.tail.element
     }
     // 反向返回表示整个链表的字符串。
     inverseToString() {
-        if (this.tail === null) {
+        if (this.tail === undefined) {
           return ''
         }
         let str = `${this.tail.element}`
         let current = this.tail.prev
-        for (let index = 0; index < this.count && current != null; index++) {
+        for (let index = 0; index < this.count && current !== undefined; index++) {
             str = `${str},${current.element}`
             current = current.prev
         }
         return str
+    }
+
+    
+    // 下面是普通(单向)链表的方法，没有变化
+    // 返回链表中特定位置的元素。如果不存在，返回 undefined
+    getElementAt(index) {
+        if (index >= 0 && index <= this.count) {
+            let current = this.head
+            for (let i = 0; i < index && current !== undefined; i++) {
+                current = current.next
+            }
+            return current
+        }
+        return undefined
+    }
+    // 返回元素在链表中的索引。如果链表中没有该元素则返回-1。
+    indexOf(element) {
+        let current = this.head
+        for (let i = 0; i < this.count && current != undefined; i++) {
+            if (this.equalsFn(element, current.element)) {
+                return i
+            }
+            current = current.next
+        }
+        return -1
+    }
+    // 从链表中移除一个元素。
+    remove(element) {
+        // 不关心 index 是否为 -1，因为在 removeAt() 方法中已经检查了 index 参数的合法性
+        const index = this.indexOf(element)
+        return this.removeAt(index)
+    }
+    // 返回链表包含的元素个数，与数组的 length 属性类似。
+    size() {
+        return this.count
+    }
+    // 如果链表中不包含任何元素，返回 true，如果链表长度大于 0则返回 false。
+    isEmpty() {
+        return this.size() === 0
+    }
+    // 返回链表的第一个元素。
+    getHead() {
+        return this.head === undefined ? undefined : this.head.element
+    }
+    // 返回表示整个链表的字符串。
+    toString() {
+        if (this.isEmpty()) { // 也可以用 this.head === undefined 来判断
+            return ''
+        }
+        let str = this.head.element
+        let current = this.head
+    
+        while (current.next !== undefined) {
+            current = current.next
+            str = `${str},${current.element}`
+        }
+        return str
+    }
+    // 修改某个位置的元素并返回 true, 如果链表中没有元素就返回 false
+    updateNodeAt(element, index) {
+        const current = this.getElementAt(index)
+        if (current === undefined) {
+            return false
+        }
+        current.element = element
+        return true
     }
 }
 
@@ -394,3 +312,5 @@ log(linkedList.toString())        // 1,9,3,5
 log(linkedList.inverseToString()) // 5,3,9,1
 log(linkedList.removeAt(2))       // 3
 log(linkedList.toString())        // 1,9,5
+log(linkedList.updateNodeAt(0, 1)) // 1,0,5
+log(linkedList.toString())        // 1,0,5

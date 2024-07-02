@@ -108,7 +108,7 @@ class Node {
         // 表示要加入链表元素的值
         this.element = element
         // 指向链表下一个元素的指针
-        this.next = null
+        this.next = undefined
     }
 }
 
@@ -118,7 +118,7 @@ class LinkedList {
         // 我们使用count来记录链表中的总数。
         this.count = 0
         // 由于链表数据结构是动态的，因此我们需要将第一个元素的引用保存下来。
-        this.head = null
+        this.head = undefined
         // 如果我们要在链表中遍历，判断当前节点是否是我们需要的节点，而链表中的节点不仅仅是值类型还可能是引用类型，
         // 因此需要我们提供一个比较方法，当没有这个方法的时候则使用默认的 equals() 方法
         this.equalsFn = equalsFn
@@ -127,12 +127,12 @@ class LinkedList {
     push(element) {
         const node = new Node(element)
         let current
-        if (this.head === null) {
+        if (this.head === undefined) {
             this.head = node
         } else {
             current = this.head
             // 获得最后一项
-            while (current.next !== null) {
+            while (current.next !== undefined) {
                 current = current.next
             }
             // 将其 next 赋为新元素，建立链接
@@ -144,7 +144,7 @@ class LinkedList {
     getElementAt(index) {
         if (index >= 0 && index <= this.count) {
             let current = this.head
-            for (let i = 0; i < index && current !== null; i++) {
+            for (let i = 0; i < index && current !== undefined; i++) {
                 current = current.next
             }
             return current
@@ -205,7 +205,7 @@ class LinkedList {
     // 返回元素在链表中的索引。如果链表中没有该元素则返回-1。
     indexOf(element) {
         let current = this.head
-        for (let i = 0; i < this.count && current != null; i++) {
+        for (let i = 0; i < this.count && current !== undefined; i++) {
             if (this.equalsFn(element, current.element)) {
                 return i
             }
@@ -229,17 +229,17 @@ class LinkedList {
     }
     // 返回链表的第一个元素。
     getHead() {
-        return this.head === null ? undefined : this.head.element
+        return this.head === undefined ? undefined : this.head.element
     }
     // 返回表示整个链表的字符串。
     toString() {
-        if (this.isEmpty()) { // 也可以用 this.head === null 来判断
+        if (this.isEmpty()) { // 也可以用 this.head === undefined 来判断
             return ''
         }
         let str = this.head.element
         let current = this.head
     
-        while (current.next !== null) {
+        while (current.next !== undefined) {
             current = current.next
             str = `${str},${current.element}`
         }
@@ -247,7 +247,7 @@ class LinkedList {
     }
     clear() {
         this.count = 0
-        this.head = null
+        this.head = undefined
     }
     // 修改某个位置的元素并返回 true, 如果链表中没有元素就返回 false
     updateNodeAt(element, index) {
