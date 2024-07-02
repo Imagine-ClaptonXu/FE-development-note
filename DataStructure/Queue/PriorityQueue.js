@@ -8,9 +8,9 @@ class PriorityQueue {
     }
 
     // 入队
-    enqueue(element, priority){
+    enqueue(element, priority) {
         const queueElement = { element, priority }
-        if (this.isEmpty) {
+        if (this.isEmpty()) {
             this.items.push(queueElement)
         } else {
             const preIndex = this.items.findIndex((item) => queueElement.priority < item.priority)
@@ -57,7 +57,7 @@ priorityQueue.enqueue('Surmon', 3)
 priorityQueue.enqueue('skyRover', 2)
 priorityQueue.enqueue('sasa', 1)
 priorityQueue.print()
-log(priorityQueue.isEmpty, priorityQueue.size()) // false 6
+log(priorityQueue.isEmpty(), priorityQueue.size()) // false 6
 // [
 //     {
 //         "element": "Jack",
