@@ -14,7 +14,9 @@
 │      ├─Promise
 │      └─排序算法
 ├─leetcode
-│  └─哈希表
+│  ├─哈希表
+│  ├─数组
+│  └─链表
 ├─test // ignore
 └─Todos
 ```
