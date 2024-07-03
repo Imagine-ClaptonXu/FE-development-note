@@ -3,7 +3,10 @@
 ##### 项目结构
 ```tree /f >./test/tree.txt
 ├─CSS
-├─DataStructure // 数据结构
+├─DataStructure     // 数据结构
+│  ├─LinkedList     // 链表
+│  ├─Queue          // 队列
+│  └─Stack          // 栈
 ├─Interview // 面试
 ├─JavaScript
 │  ├─工具库 // 常用方法集合

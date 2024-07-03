@@ -18,6 +18,8 @@
 │      LinkedList.js            // 链表
 │      DoublyLinkedList.js      // 双向链表
 │      CircularLinkedList.js    // 循环链表
+│      SortedLinkedList.js      // 有序链表
+│      StackLinkedList.js       // 双向链表实现栈
 │      
 ├─Queue
 │      Queue.js                 // 队列
