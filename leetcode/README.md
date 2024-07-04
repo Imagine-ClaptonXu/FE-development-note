@@ -51,13 +51,13 @@
 - [√] [141. 环形链表](https://leetcode.cn/problems/linked-list-cycle/)
 - [√] [83. 删除排序链表中的重复元素](https://leetcode.cn/problems/remove-duplicates-from-sorted-list/)
 - [√] [234. 回文链表](https://leetcode.cn/problems/palindrome-linked-list/)
-- [ ] [203. 移除链表元素](https://leetcode.cn/problems/remove-linked-list-elements/)
-- [ ] [237. 删除链表中的节点](https://leetcode.cn/problems/delete-node-in-a-linked-list/)
-- [ ] [876. 链表的中间结点](https://leetcode.cn/problems/middle-of-the-linked-list/)
+- [√] [203. 移除链表元素](https://leetcode.cn/problems/remove-linked-list-elements/)
+- [√] [876. 链表的中间结点](https://leetcode.cn/problems/middle-of-the-linked-list/)
 
 ###### 中等
 
-- [ ] [92. 反转链表 II](https://leetcode.cn/problems/reverse-linked-list-ii/)
+- [√] [237. 删除链表中的节点](https://leetcode.cn/problems/delete-node-in-a-linked-list/)
+- [√] [92. 反转链表 II](https://leetcode.cn/problems/reverse-linked-list-ii/)
 - [ ] [143. 重排链表](https://leetcode.cn/problems/reorder-list/)
 - [ ] [82. 删除排序链表中的重复元素 II](https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/)
 - [ ] [19. 删除链表的倒数第 N 个结点](https://leetcode.cn/problems/remove-nth-node-from-end-of-list/)
@@ -270,7 +270,7 @@
 
 ## 堆
 
-#### 栈基础
+#### 堆基础
 
 ###### 简单
 

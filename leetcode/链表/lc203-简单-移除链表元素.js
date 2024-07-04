@@ -1,5 +1,6 @@
 /*
 203. 移除链表元素
+https://leetcode.cn/problems/remove-linked-list-elements/
 简单
 给你一个链表的头节点 head 和一个整数 val，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点。
 
@@ -36,35 +37,36 @@ var log = console.log.bind(console)
  * @return {ListNode}
  */
 var removeElements = function(head, val) {
-    let newHead = head
-    let cur = head
-    while (newHead && cur) {
-        if (newHead.val === val) {
-            newHead = cur.next
-            cur = newHead
-            log('in newHead.val === val', newHead.val)
-            continue
-        }
-        if (cur.val === val) {
-            cur = cur.next
-            // head = cur
-            continue
-        }
-        let next = cur.next
-        if (next && next.val === val) {
-            // cur.next = next.next
-            // cur.next = next.next
-            cur = next.next
-            continue
-        }
-        cur = cur.next
-        // console.log('cur', cur.val)
+    // 将头结点直接挪到下一个节点上去
+    while(head && head.val === val) {
+        head = head.next
     }
-    return newHead
-};
+    if(!head) {
+        return head
+    }
 
-// head = [1,2,6,3,4,5,6], val = 6
-// [1,2,3,4,5]
-// init cur=1 cur.next=2 next=2 next.next=6
-// cur=2 cur.next=2 next=6 next.next=3  =>  cur=2 cur=next.next=3
-// 
+    let pre = head
+    while(pre && pre.next) {
+        if (pre.next.val === val) {
+            pre.next = pre.next.next
+        } else {
+            pre = pre.next
+        }
+    }
+    return head
+}
+
+// 官方题解
+var removeElements = function(head, val) {
+    const dummyHead = new ListNode(0);
+    dummyHead.next = head;
+    let temp = dummyHead;
+    while (temp.next !== null) {
+        if (temp.next.val == val) {
+            temp.next = temp.next.next;
+        } else {
+            temp = temp.next;
+        }
+    }
+    return dummyHead.next;
+};
