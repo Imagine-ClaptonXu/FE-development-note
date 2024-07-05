@@ -4,6 +4,7 @@
 ```tree /f >./test/tree.txt
 ├─CSS
 ├─DataStructure     // 数据结构
+│  ├─Dictionary     // 字典
 │  ├─Set            // 集合
 │  ├─LinkedList     // 链表
 │  ├─Queue          // 队列
@@ -21,5 +22,5 @@
 ├─test // ignore
 ├─Todos      
 └─TypeScript 
-│  └─clean-code-typescript // TypeScript 代码整洁之道
+   └─clean-code-typescript // TypeScript 代码整洁之道
 ```

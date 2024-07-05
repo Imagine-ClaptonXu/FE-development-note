@@ -1,48 +1,7 @@
-// -------- 哈希表（散列） 分离链接 线性探查 loselose djb2 --------
+// -------- 其他的散列函数：分离链接，线性探查 --------
 
-class HashTable { // loselose
-    constructor() {
-        this.table = []
-    }
-
-    // 散列函数
-    static loseloseHashCode(key) {
-        let hash = 0
-        for (let codePoint of key) {
-            hash += codePoint.charCodeAt()
-        }
-        return hash % 37
-    }
-
-    // 修改和增加元素
-    put(key, value) {
-        const position = HashTable.loseloseHashCode(key)
-        console.log(`${position} - ${key}`)
-        this.table[position] = value
-    }
-
-    get(key) {
-        return this.table[HashTable.loseloseHashCode(key)]
-    }
-
-    remove(key) {
-        this.table[HashTable.loseloseHashCode(key)] = undefined
-    }
-}
-
-// test
-var log = console.log.bind(console)
-const hash = new HashTable()
-hash.put('Surmon', 'surmon.me@email.com') // 19 - Surmon
-hash.put('John', 'johnsnow@email.com') // 29 - John
-hash.put('Tyrion', 'tyrion@email.com') // 16 - Tyrion
-log(hash.get('Surmon')) // surmon.me@email.com
-log(hash.get('Loiane')) // undefined
-log(hash)
-
-
-// -------- 处理散列表中的冲突 --------
-// 有时候，一些键会有相同的散列值。不同的值在散列表中对应相同位置的时候，我们称其为冲突。如下代码：
+// -------- 处理 HashTable.js 中的冲突 --------
+// 有时一些键会有相同的散列值。不同的值在散列表中对应相同位置的时候，称其为冲突。比如：
 const hashlose = new HashTable()
 hashlose.put('Gandalf', 'gandalf@email.com')
 hashlose.put('John', 'johnsnow®email.com')
@@ -50,21 +9,15 @@ hashlose.put('John', 'johnsnow®email.com')
 hashlose.put('Tyrion', 'tyrion@email.com')
 hashlose.put('Aaron', 'aaronOemail.com')
 
-hashlose.put('Donnie', 'donnie@email.com')
-hashlose.put('Ana', 'ana©email.com')
-
 hashlose.put('Jonathan', 'jonathan@email.com')    
 hashlose.put('Jamie', 'jamie@email.com')
 hashlose.put('Sue', 'sueOemail.com')
 
-hashlose.put('Mindy', 'mindy@email.com')
-hashlose.put('Paul', 'paul©email.com')
-
 hashlose.put('Nathan', 'nathan@email.com')
-// Tyrion 和 Aaron 有相同的散列值（16)，Donnie 和 Ana 有相同的散列值（13)，Jonathan、Jamie 和 Sue 有相同的散列值（5), Mindy 和 Paul 也有相同的散列值（32)
+// Tyrion 和 Aaron 有相同的散列值（16)，Jonathan、Jamie 和 Sue 有相同的散列值（5)
 // 导致最终的数据对象中，只有最后一次被添加/修改的数据会覆盖原本数据，进而生效。
 // 使用一个数据结构来保存数据的目的显然不是去丢失这些数据，而是通过某种方法将它们全部保存起来；因此，当这种情况发生的时候就要去解决它。
-// 处理冲突有几种方法：分离链接、线性探查和双散列法。下面介绍前两种方法。
+// 介绍两种处理冲突的方法：分离链接、线性探查。
 
 
 // -------- 分离链接 --------
@@ -156,25 +109,6 @@ class LinkedList {
         return -1
     }
 
-    // 修改某个位置的元素
-    update(position, element) {
-        let res = false
-        if (position >= 0 && position <= this.length) {
-            let index = 0
-            let current = this.head
-            if (position === 0) {
-                current.element = element
-            } else {
-                while (index++ < position) {
-                    current = current.next
-                }
-                current.element = element
-                res = current
-            }
-        }
-        return res
-    }
-
     // 移除指定位置元素
     removeAt(position) {
         // 检查越界值
@@ -220,16 +154,6 @@ class LinkedList {
             current = current.next
         }
         return string
-    }
-
-    // 返回正向遍历节点字符串形式
-    forwardString() {
-        return this.toString()
-    }
-
-    // 返回反向遍历的节点的字符串形式
-    backwordString() {
-        return this.toString().split('').reverse().join('')
     }
 }
 
@@ -290,7 +214,8 @@ class HashTable2 { // 分离链接
     }    
 }
 
-// test
+
+// -------- test --------
 var log = console.log.bind(console)
 const hash2 = new HashTable2()
 hash2.put('Gandalf', 'gandalf@email.com')
@@ -302,28 +227,22 @@ log('hash2', hash2)
 hash2.remove('Aaron')
 log('hash2', hash2)
 
-hash2.put('Donnie', 'donnie@email.com')
-hash2.put('Ana', 'ana©email.com')
-
 hash2.put('Jonathan', 'jonathan@email.com')    
 hash2.put('Jamie', 'jamie@email.com')
 hash2.put('Sue', 'sueOemail.com')
 
-hash2.put('Mindy', 'mindy@email.com')
-hash2.put('Paul', 'paul©email.com')
-
 hash2.put('Nathan', 'nathan@email.com')
 
 
-// -------- 线性探查 --------
-// 当想向表中某个位置加入一个新元素的时候，如果索引为 index 的位置已经被占据了，就尝试 index+1的位置。
-// 如果index+1 的位置也被占据了，就尝试 index+2 的位置，以此类推。
+// -------- 线性探查1 lose lose 散列函数 --------
+// 当想向表中某个位置加入一个新元素的时候，如果索引为 index 的位置已经被占据了，就尝试 index+1 的位置。
+// 如果 index+1 的位置也被占据了，就尝试 index+2 的位置，以此类推。
 class HashTable3 { // 线性探查
     constructor() {
         this.table = []
     }
 
-    // 散列函数
+    // 散列函数 lose lose，方法是简单地将每个键值中的每个字母的 ASCII 值相加。
     static loseloseHashCode(key) {
         let hash = 0
         for (let codePoint of key) {
@@ -374,7 +293,8 @@ class HashTable3 { // 线性探查
     }     
 }
 
-// test
+
+// -------- test --------
 var log = console.log.bind(console)
 const hash3 = new HashTable3()
 hash3.put('Gandalf', 'gandalf@email.com')
@@ -386,31 +306,25 @@ log('hash3', hash3)
 hash3.remove('Aaron')
 log('hash3', hash3)
 
-hash3.put('Donnie', 'donnie@email.com')
-hash3.put('Ana', 'ana©email.com')
-
 hash3.put('Jonathan', 'jonathan@email.com')    
 hash3.put('Jamie', 'jamie@email.com')
 hash3.put('Sue', 'sueOemail.com')
 
-hash3.put('Mindy', 'mindy@email.com')
-hash3.put('Paul', 'paul©email.com')
-
 hash3.put('Nathan', 'nathan@email.com')
-hash3.get('Ana')
+hash3.get('Jamie')
 
 
-// -------- 线性探查, "lose lose" 散列函数换成 djb2 --------
-// 当想向表中某个位置加入一个新元素的时候，如果索引为 index 的位置已经被占据了，就尝试 index+1的位置。
-// 如果index+1 的位置也被占据了，就尝试 index+2 的位置，以此类推。
+// -------- 线性探查2，djb2 散列函数 --------
+// 当想向表中某个位置加入一个新元素的时候，如果索引为 index 的位置已经被占据了，就尝试 index+1 的位置。
+// 如果 index+1 的位置也被占据了，就尝试 index+2 的位置，以此类推。
 class HashTable4 { // 线性探查
     constructor() {
         this.table = []
     }
 
-    // 散列函数 djb2
+    // 散列函数 djb2，产生简单的随机分布的散列函数
     static djb2HashCode(key) { 
-        let hash = 5381 // 一个较大的质数
+        let hash = 5381 // 取一个较大的质数
         for (let codePoint of key) {
             hash = hash * 33 + codePoint.charCodeAt()
         }
@@ -458,7 +372,8 @@ class HashTable4 { // 线性探查
     }     
 }
 
-// test
+
+// -------- test --------
 var log = console.log.bind(console)
 const hash4 = new HashTable4()
 hash4.put('Gandalf', 'gandalf@email.com')
@@ -470,15 +385,9 @@ log('hash4', hash4)
 hash4.remove('Aaron')
 log('hash4', hash4)
 
-hash4.put('Donnie', 'donnie@email.com')
-hash4.put('Ana', 'ana©email.com')
-
 hash4.put('Jonathan', 'jonathan@email.com')    
 hash4.put('Jamie', 'jamie@email.com')
 hash4.put('Sue', 'sueOemail.com')
 
-hash4.put('Mindy', 'mindy@email.com')
-hash4.put('Paul', 'paul©email.com')
-
 hash4.put('Nathan', 'nathan@email.com')
-hash4.get('Ana')
+hash4.get('Jamie')
