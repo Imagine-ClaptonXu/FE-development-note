@@ -1,8 +1,5 @@
 ## leetcode
 
-- [leetcode 面试经典 150 题](https://leetcode.cn/studyplan/top-interview-150/)
-- [算法通关手册(LeetCode)](https://algo.itcharge.cn/01.Array/)
-
 
 ## 目录
 - [ ] [链表](#链表)
@@ -657,3 +654,11 @@
 - [ ] [587. 安装栅栏](https://leetcode.cn/problems/erect-the-fence/)
 - [ ] [1515. 服务中心的最佳位置](https://leetcode.cn/problems/best-position-for-a-service-centre/)
 
+
+##### Reference
+- [leetcode - 面试经典 150 题](https://leetcode.cn/studyplan/top-interview-150/)
+- [leetcode - 热题 100](https://leetcode.cn/studyplan/top-100-liked/)
+- [leetcode - 剑指 offer Interview 75](https://leetcode.cn/studyplan/coding-interviews/)
+- [blog - 算法通关手册(LeetCode)](https://algo.itcharge.cn/01.Array/)
+- [github - leetcode-javascript)](https://github.com/sl1673495/leetcode-javascript)
+- [krahets-LeetBook - 图解算法数据结构](https://github.com/krahets/LeetCode-Book?tab=readme-ov-file)
