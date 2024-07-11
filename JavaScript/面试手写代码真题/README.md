@@ -4,6 +4,7 @@
 ```tree /f
 │  ajax.js
 │  README.md
+│  大数相加.js
 │  实现bind函数.js
 │  实现new方法.js
 │  抢红包.js
