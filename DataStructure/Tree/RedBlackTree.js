@@ -102,7 +102,7 @@ class RedBlackTree {
     // 在插入节点后验证红黑树属性
     fixTreeProperties(node) {
         // 从插入的节点开始，要验证它的父节点是否是红色，以及这个节点是否不是黑色。
-        while (node && node.parent && node.parent.isRed() && node.color !== Colors.BLACK) {
+        while (node && node.parent && node.parent.isRed() && node.color !== Colors.BLACK) { // fix: book P196
             // 为了保证代码的可读性，要保存父节点和祖父节点（的引用）
             let parent = node.parent
             const grandParent = parent.parent

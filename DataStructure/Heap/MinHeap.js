@@ -58,7 +58,7 @@ class MinHeap {
         // 需要获取其父节点的位置
         let parent = this.getParentIndex(index)
         // 如果插入的值小于它的父节点（在最小堆中，或在最大堆中比父节点大），那么将这个元素和父节点交换
-        let compare = this.compareFn(this.heap[parent], this.heap[index]) > Compare.LESS_THAN
+        let compare = this.compareFn(this.heap[parent], this.heap[index]) > Compare.LESS_THAN // fix: book P204
         // 重复这个过程直到堆的根节点也经过了交换节点和父节点位置的操作
         while (index > 0 && compare) {
             // log('in while parent', parent)
@@ -108,13 +108,13 @@ class MinHeap {
         const size = this.size()
         // 下移操作表示将元素和最小子节点（最小堆）进行交换。
         // 如果元素小于它的左子节点（且 index 合法），就交换元素和它的左子节点。
-        let compareLeft = this.compareFn(this.heap[element], this.heap[left]) > Compare.LESS_THAN
+        let compareLeft = this.compareFn(this.heap[element], this.heap[left]) > Compare.LESS_THAN // fix: book P207
         if (left < size && compareLeft) {
             // log('in left')
             element = left
         }
         // 如果元素小于它的右子节点（且 index 合法），就交换元素和它的右子节点。
-        let compareRight = this.compareFn(this.heap[element], this.heap[right]) > Compare.LESS_THAN
+        let compareRight = this.compareFn(this.heap[element], this.heap[right]) > Compare.LESS_THAN // fix: book P207
         if (right < size && compareRight) {
             // log('in right')
             element = right

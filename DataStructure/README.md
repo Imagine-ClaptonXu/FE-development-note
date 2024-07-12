@@ -71,3 +71,10 @@
 - [blog - JavaScript数据结构和算法](https://wangtunan.github.io/blog/books/javascript/algorithm.html)
 - [掘金 - 在 JavaScript 中学习数据结构与算法](https://juejin.cn/post/6844903482432962573#heading-13)
 - [blog - 算法通关手册（LeetCode）](https://algo.itcharge.cn/)
+
+### 注
+- `.js` 文件中已增加测试用例。
+
+- 每个 `.js` 文件均可直接运行（node 环境或浏览器环境）。
+
+- 修复个人对`《学习JavaScript数据结构与算法（第3版）》`书中的疑问点并标注页码，可全局搜索「`fix: book`」找到具体位置进行对比查看。
