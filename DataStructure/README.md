@@ -23,6 +23,8 @@
 ├─Heap
 │      Heap.js                  // 堆
 │      MinHeap.js               // 最小堆
+│      MaxHeap.js               // 最大堆
+│      HeapSort.js              // 堆排序算法
 │      
 ├─Tree
 │      Tree.js                  // 树

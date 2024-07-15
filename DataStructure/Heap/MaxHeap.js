@@ -1,4 +1,5 @@
-// -------- 最小堆 --------
+// -------- 最大堆 --------
+// MaxHeap 类的算法和 MinHeap 类的算法一模一样。不同之处在于要把所有 >（大于）的比较换成 <（小于）的比较。
 
 function defaultCompare (a, b) {
     if (a === b) {
@@ -6,20 +7,11 @@ function defaultCompare (a, b) {
     }
     return a < b ? -1 : 1
 }
-
-// 交换函数
-// const swap = function (array, a, b) {
-//     const tmp = array[a]
-//     array[a] = array[b]
-//     array[b] = tmp
-// }
 const swap = (array, a, b) => [array[a], array[b]] = [array[b], array[a]]
-
 const Compare = {
     LESS_THAN: -1,
     BIGGER_THAN: 1,
 }
-
 class MinHeap {
     constructor(compareFn=defaultCompare) {
         this.compareFn = compareFn
@@ -130,22 +122,34 @@ class MinHeap {
 }
 
 
+// 将比较反转，不将 a 和 b 进行比较，而是将 b 和 a 进行比较
+function reverseCompare(compareFn) {
+    return (a, b) => compareFn(b, a)
+}
+
+// 最大堆
+class MaxHeap extends MinHeap {
+    constructor(compareFn=defaultCompare) {
+        super(compareFn)
+        this.compareFn = reverseCompare(compareFn)
+    }
+}
+
+
 // -------- test --------
+// 用测试最小堆的代码来测试最大堆。不同点是最大的值会是堆的根节点，而不是最小的值。
 var log = console.log.bind(console)
-const heap = new MinHeap()
-heap.insert(2)
-heap.insert(3)
-heap.insert(4)
-heap.insert(5)
-heap.insert(1) // [1, 2, 4, 5, 3]
-/*插入 1 之后，会做如下操作：
-        2                       2                        2                      1
-    3       4       =>      3       4       =>      1       4       =>      2       4
-5                       5       1               5       3               5       3
-*/
-log('Heap size: ', heap.size())             // 5
-log('Heap is empty: ', heap.isEmpty())      // false
-log('Heap min value: ', heap.findMinimum()) // 1
-log('Extract minimum: ', heap.extract())    // 1
-log('Extract minimum: ', heap.extract())    // 2
-log('Extract minimum: ', heap.extract())    // 3
+const maxHeap = new MaxHeap()
+maxHeap.insert(2)
+maxHeap.insert(3)
+maxHeap.insert(4)
+maxHeap.insert(5)
+maxHeap.insert(1)
+log('Heap size: ', maxHeap.size())             // 5
+log('Heap min value: ', maxHeap.findMinimum()) // 5
+log('Heap size: ', maxHeap.size())             // 5
+log('Heap is empty: ', maxHeap.isEmpty())      // false
+log('Heap min value: ', maxHeap.findMinimum()) // 5
+log('Extract maximum: ', maxHeap.extract())    // 5
+log('Extract maximum: ', maxHeap.extract())    // 4
+log('Extract maximum: ', maxHeap.extract())    // 3
