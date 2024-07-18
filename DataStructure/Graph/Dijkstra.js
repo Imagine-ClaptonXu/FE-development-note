@@ -3,7 +3,7 @@
 是由荷兰计算机科学家狄杰斯特拉于 1959 年提出的，因此又叫狄克斯特拉算法。
 是一种计算从单个源到所有其他源的最短路径（贪心）算法，这意味着可以用它来计算从图的一个顶点到其余各顶点的最短路径。考虑这个图(./res/Dijkstra.png)。
 来看看如何找到顶点 A 和其余顶点之间的最短路径。
-但首先需要声明表示上图(./res/Dijkstra.png)的邻接矩阵，如下所示。
+但首先需要声明表示上图(./res/Dijkstra.png)的邻接矩阵，如下 graph 所示。
 */
 
 
@@ -26,6 +26,19 @@ const INFINITY = Number.MAX_SAFE_INTEGER // 或 const INFINITY = Infinity
  * @returns [] 从源顶点（src）到图中其他顶点最短路径的结果。
  */
 const dijkstra = (graph, src=0) => {
+    // 要计算顶点间的 minDistance，就要搜索 distance 数组中的最小值，返回它在数组中的索引。
+    const minDistance = (distance, visited) => {
+        let min = INFINITY
+        let minIndex = -1
+        for (let v = 0; v < distance.length; v++) {
+            if (visited[v] === false && distance[v] <= min) {
+                min = distance[v]
+                minIndex = v
+            }
+        }
+        return minIndex
+    }
+
     const distance = []
     const visited = []
     const { length } = graph
@@ -36,6 +49,7 @@ const dijkstra = (graph, src=0) => {
     }
     // 然后把源顶点到自己的距离设为 0。
     distance[src] = 0
+
     // 接下来要找出到其余顶点的最短路径。
     for (let i = 0; i < length - 1; i++) {
         // 所以需要从尚未处理的顶点中选出距离最近的顶点。
@@ -49,21 +63,9 @@ const dijkstra = (graph, src=0) => {
             }
         }
     }
+    
     // 处理完所有顶点后，返回从源顶点（src）到图中其他顶点最短路径的结果。
     return distance
-}
-
-// 要计算顶点间的 minDistance，就要搜索 distance 数组中的最小值，返回它在数组中的索引。
-const minDistance = (distance, visited) => {
-    let min = INFINITY
-    let minIndex = -1
-    for (let v = 0; v < distance.length; v++) {
-        if (visited[v] === false && distance[v] <= min) {
-            min = distance[v]
-            minIndex = v
-        }
-    }
-    return minIndex
 }
 
 
