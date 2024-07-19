@@ -23,7 +23,7 @@ const INFINITY = Number.MAX_SAFE_INTEGER // 或 const INFINITY = Infinity
 /** Dijkstra 算法
  * @param {Array} graph 邻接矩阵
  * @param {number} src 源顶点
- * @returns [] 从源顶点（src）到图中其他顶点最短路径的结果。
+ * @returns { distance, path } 增加了对算法的修改，将源顶点（src）到图中其他顶点的最短路径的值和路径一同返回。
  */
 const dijkstra = (graph, src=0) => {
     // 要计算顶点间的 minDistance，就要搜索 distance 数组中的最小值，返回它在数组中的索引。
@@ -40,16 +40,23 @@ const dijkstra = (graph, src=0) => {
     }
 
     const distance = []
+    const path = []
     const visited = []
     const { length } = graph
-    // 先把所有的距离（distance）初始化为无限大（JavaScript 最大的数 INFINITY = Number.MAX_SAFE_INTEGER），将 visited[] 初始化为 false。
+    // 先把所有的距离（distance）初始化为无限大（JavaScript 最大的数 INFINITY = Number.MAX_SAFE_INTEGER）
+    // 将所有的路径初始化为 -1（无法到达）
+    // 将 visited[] 初始化为 false。
     for (let i = 0; i < length; i++) {
         distance[i] = INFINITY
+        path[i] = [-1]
         visited[i] = false
     }
+
     // 然后把源顶点到自己的距离设为 0。
     distance[src] = 0
-
+    // 把从源顶点开始的路径设为自己。
+    path[src] = [src]
+    
     // 接下来要找出到其余顶点的最短路径。
     for (let i = 0; i < length - 1; i++) {
         // 所以需要从尚未处理的顶点中选出距离最近的顶点。
@@ -57,19 +64,35 @@ const dijkstra = (graph, src=0) => {
         // 把选出的顶点标为 visited（true），以免重复计算。
         visited[u] = true
         for (let v = 0; v < length; v++) {
-            // 如果找到更短的路径，则更新最短路径的值
+            // 如果找到更短的路径，则更新最短路径，再更新最短路径的值
             if (!visited[v] && graph[u][v] !== 0 && distance[u] !== INFINITY && distance[u] + graph[u][v] < distance[v]) {
+                path[v] = [...path[u], v]
                 distance[v] = distance[u] + graph[u][v]
             }
         }
     }
-    
-    // 处理完所有顶点后，返回从源顶点（src）到图中其他顶点最短路径的结果。
-    return distance
+
+    // 处理完所有顶点后，返回从源顶点（src）到图中其他顶点最短路径的值和路径。
+    return {
+        distance,
+        path,
+    }
 }
 
 
 // -------- test --------
 var log = console.log.bind(console)
 const spa = dijkstra(graph, 0)
+const distance = spa.distance
+const path = spa.path
 log(spa) // [0, 2, 4, 6, 4, 6]
+log(path)
+/* path = [
+    [0],
+    [0, 1],
+    [0, 2],
+    [0, 1, 3],
+    [0, 1, 4],
+    [0, 1, 4, 5],
+]
+*/
