@@ -28,6 +28,9 @@
 │      SPA.js                   // 最短路径算法
 │      Dijkstra.js              // Dijkstra 最短路径算法
 │      FloydWarshall.js         // Floyd-Warshall 最短路径算法
+│      MST.js                   // 最小生成树
+│      Prim.js                  // Prim 算法
+│      Kruskal.js               // Kruskal 算法
 │      
 ├─Heap
 │      Heap.js                  // 堆
