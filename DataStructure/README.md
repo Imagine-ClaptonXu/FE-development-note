@@ -81,6 +81,7 @@
 ```
 
 ### Reference
+- 《JavaScript 数据结构和算法》第一章 ~ 第十二章
 - [gitee - 《学习JavaScript数据结构与算法（第3版）》](https://gitee.com/mewcoder/fe-book/raw/master/%E5%AD%A6%E4%B9%A0JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E7%AC%AC3%E7%89%88%EF%BC%89.pdf)
 - [blog - JavaScript数据结构和算法](https://wangtunan.github.io/blog/books/javascript/algorithm.html)
 - [掘金 - 在 JavaScript 中学习数据结构与算法](https://juejin.cn/post/6844903482432962573#heading-13)

@@ -2,6 +2,9 @@
 
 ##### 项目结构
 ```tree /f >./test/tree.txt
+├─Algorithm
+│  ├─排序算法         
+│  └─搜索算法
 ├─CSS
 ├─DataStructure     // 数据结构
 │  ├─Graph          // 图
