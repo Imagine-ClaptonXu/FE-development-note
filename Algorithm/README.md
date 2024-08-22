@@ -19,6 +19,9 @@
 │      shellSort.js        // 希尔排序       
 │      
 └─搜索算法
+        sequentialSearch.js     // 顺序搜索
+        binarySearch.js         // 二分搜索
+        interpolationSearch.js  // 内插搜索
 
 ```
 
